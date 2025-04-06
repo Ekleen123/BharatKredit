@@ -35,8 +35,8 @@ def initialize_database():
                 crop TEXT
             )""")
         try:
-            if os.path.exists('data/farmers.csv'):
-                df = pd.read_csv('data/farmers.csv')
+            if os.path.exists(FARMERS_CSV):
+                df = pd.read_csv(FARMERS_CSV)
                 df.to_sql('farmers', conn, if_exists='append', index=False)
             else:
                 cursor.executemany("INSERT INTO farmers VALUES (?,?,?,?,?,?)", [
@@ -66,14 +66,14 @@ def local_image_to_base64(image_path):
 def main():
     st.set_page_config(page_title="🌾 भारतKredit (BharatKredit) - AI-Powered Agricultural Loan System", layout="wide")
 
-    # Style
+    # ✅ Background and sidebar color restored
     st.markdown("""
         <style>
-            body {
+            .stApp {
                 background-color: #F3F8F0;
             }
-            .st-emotion-cache-6qob1r {
-                background-color: #FEEBDA !important;
+            [data-testid="stSidebar"] {
+                background-color: #FEEBDA;
             }
             h1, h2, h3 {
                 font-family: 'Segoe UI', sans-serif;
@@ -82,7 +82,7 @@ def main():
     """, unsafe_allow_html=True)
 
     # Banner
-    banner_path = "D:/d/farming_loans/BharatKredit.jpg"
+    banner_path = "BharatKredit.jpg"
     if os.path.exists(banner_path):
         banner_base64 = local_image_to_base64(banner_path)
         st.markdown(f"""
@@ -91,7 +91,7 @@ def main():
             </div>
         """, unsafe_allow_html=True)
     else:
-        st.warning("⚠️ Banner image not found at specified path.")
+        st.warning("⚠️ Banner image not found at specified path. Please place 'BharatKredit.jpg' in the same folder as app.py.")
 
     if st.sidebar.button("🔄 Initialize System"):
         initialize_database()
