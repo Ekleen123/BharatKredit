@@ -82,7 +82,8 @@ def main():
     """, unsafe_allow_html=True)
 
     # Banner
-    banner_path = "BharatKredit.jpg"
+    banner_path = banner_path = Path(__file__).parent / "BharatKredit.jpg"
+
     if os.path.exists(banner_path):
         banner_base64 = local_image_to_base64(banner_path)
         st.markdown(f"""
