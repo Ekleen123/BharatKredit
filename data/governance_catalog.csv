@@ -1,0 +1,3 @@
+source_system,attribute,data_type,sensitivity
+UPI,txn_id,string,high
+Aadhaar,uid,number,critical
